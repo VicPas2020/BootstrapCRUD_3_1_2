@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form th:action="@{/admin/addUser}" th:object="${user}" th:method="post">
+    <p> country  <input          type="text" th:field="*{country}">   </p>
+    <p> city     <input          type="text" th:field="*{city}">      </p>
+    <p> street   <input          type="text" th:field="*{street}">    </p><br>
+    <p> username <input required type="text" th:field="*{username}">  </p>
+    <p> password <input required type="text" th:field="*{password}">  </p>
+
+    <p>
+        <label>ROLE:</label><br>
+        <input required type="radio" name="roleInput" value="ROLE_ADMIN">admin<br>
+        <input required type="radio" name="roleInput"  value="ROLE_USER">user<br>
+    </p>
+
+    <p>Submit  <input type="submit" value="GO"></p>
+
+    <a th:href="@{/admin/show}">Back</a>
+    <a th:href="@{/logout}">Logout</a>
+</form>
+
+
+
+
+
+</body>
+</html>
