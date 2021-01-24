@@ -22,7 +22,6 @@ public class CrudBootSpringSecurity01Application {
 		SpringApplication.run(CrudBootSpringSecurity01Application.class, args);
 	}
 
-
 	@Order(1)
 	@Bean
 	CommandLineRunner initDatabase__AnyNamePossible_Roles(RoleRepo roleRepository) {
@@ -33,6 +32,7 @@ public class CrudBootSpringSecurity01Application {
 			}
 		};
 	}
+
 	@Order(2)
 	@Bean
 	CommandLineRunner initDatabase__Admin(UserRepo userRepository ) {
@@ -43,12 +43,10 @@ public class CrudBootSpringSecurity01Application {
 
 				PasswordEncoder passwordEncoder =
 						PasswordEncoderFactories.createDelegatingPasswordEncoder();
-				String encodedPass = passwordEncoder.encode("1");
+				String encodedPass = passwordEncoder.encode("root");
 
-				userRepository.save(new User("Ru", "Bel", "8M", "a", encodedPass, set));
+				userRepository.save(new User("Ru", "Bel", "8M", "root", encodedPass, set));
 			}
 		};
 	}
-
-
 }

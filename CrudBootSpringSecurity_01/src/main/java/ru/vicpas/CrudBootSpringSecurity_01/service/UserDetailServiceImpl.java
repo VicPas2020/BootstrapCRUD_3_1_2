@@ -33,7 +33,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
             authSet.add(new SimpleGrantedAuthority(role.getRole()));
         }
 
-
         //... и создаем специального Юзера - Принципала
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authSet);
     }

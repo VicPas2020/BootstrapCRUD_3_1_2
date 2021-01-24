@@ -3,7 +3,6 @@ package ru.vicpas.CrudBootSpringSecurity_01.model;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -33,23 +32,19 @@ public class User implements UserDetails {
     @Column(name = "street")
     private String street;
 
-
-
     @Column(name = "username")
     private String username;
 
     @Column(name = "password")
     private String password;
 
-
-
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
             joinColumns        = {@JoinColumn(name = "id_from_users")},
             inverseJoinColumns = {@JoinColumn(name = "id_from_roles")})
     private Set<Role> roles;
-////////////////////////////////////////////
 
+    ///////////////////   Overrided ////////////////////////////////
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -75,8 +70,8 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-////////////////////////////////////////////////
 
+    /////////////// constructors ///////////////////////////////////////
 
     public User() {
     }

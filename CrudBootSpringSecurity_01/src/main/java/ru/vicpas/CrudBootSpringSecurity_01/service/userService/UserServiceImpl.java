@@ -8,7 +8,6 @@ import ru.vicpas.CrudBootSpringSecurity_01.repository.UserRepo;
 
 import java.util.List;
 
-
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -30,7 +29,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void addNewUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword())); // part of business logic
         userRepo.save(user);
     }
 
@@ -51,7 +50,6 @@ public class UserServiceImpl implements UserService {
     public User getByID(Long id) {
         return userRepo.getOne(id);
     }
-
 
     @Override
     public User getUserByUserName(String name) {

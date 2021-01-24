@@ -23,7 +23,6 @@ public class EditController {
         this.roleService = roleService;
     }
 
-
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id, Model model ) {
         User user = userService.getByID(id); // получаем User-а
@@ -38,11 +37,9 @@ public class EditController {
         return "editUser";
     }
 
-
     @PostMapping("/edit")
     public String edit(@ModelAttribute("user") User user,
-                       @RequestParam(value = "roleInput", required = true) String requiredRole
-
+                       @RequestParam(value = "roleInput" ) String requiredRole
                        ) {
         Set<Role> set = new HashSet<>();// Set - на случай если будет много ролей у одного пользователя
         set.add(roleService.findRoleByRoleName(requiredRole));
@@ -50,7 +47,5 @@ public class EditController {
         user.setRoles(set);
         userService.editExistedUser(user);
         return "redirect:/admin/show";
-
     }
-
 }

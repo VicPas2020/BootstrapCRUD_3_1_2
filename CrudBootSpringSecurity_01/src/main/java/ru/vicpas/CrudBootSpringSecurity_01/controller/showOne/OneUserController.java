@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.vicpas.CrudBootSpringSecurity_01.model.User;
 import ru.vicpas.CrudBootSpringSecurity_01.repository.UserRepo;
-import ru.vicpas.CrudBootSpringSecurity_01.service.userService.UserService;
 
 @Controller
 public class OneUserController {
@@ -32,5 +31,4 @@ public class OneUserController {
     public String getNameFromSecurityContext() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
-
 }

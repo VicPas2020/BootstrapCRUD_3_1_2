@@ -19,14 +19,13 @@
     <p>password:  <input readonly type="text"   th:field="*{password}"></p>
 
 <p>
+<!--        <label>role</label><br>-->
+    <label>admin:  <input type="radio" name="roleInput" value="ROLE_ADMIN" th:checked="${roleAdmin}"> </label><br>
 
-        <label>role</label><br>
-        <input type="radio"  name="roleInput" value="ROLE_ADMIN" th:checked="${roleAdmin}"><br>
-        <input type="radio"  name="roleInput" value="ROLE_USER"  th:checked="${roleUser}"><br>
-
+    <label>user:  <input type="radio" name="roleInput" value="ROLE_USER"  th:checked="${roleUser}">  </label><br>
 </p>
 
-    <p> <input type="submit" value="GO"></p>
+    <p> <input type="submit" value="Apply"></p>
 
 </form>
 

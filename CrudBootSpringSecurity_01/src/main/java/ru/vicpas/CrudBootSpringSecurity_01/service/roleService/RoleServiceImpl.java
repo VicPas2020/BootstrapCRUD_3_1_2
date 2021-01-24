@@ -1,7 +1,6 @@
 package ru.vicpas.CrudBootSpringSecurity_01.service.roleService;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.vicpas.CrudBootSpringSecurity_01.model.Role;
 import ru.vicpas.CrudBootSpringSecurity_01.repository.RoleRepo;
 

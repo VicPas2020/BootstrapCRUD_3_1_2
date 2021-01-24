@@ -14,9 +14,13 @@
     <p> password <input required type="text" th:field="*{password}">  </p>
 
     <p>
-        <label>ROLE:</label><br>
-        <input required type="radio" name="roleInput" value="ROLE_ADMIN">admin<br>
-        <input required type="radio" name="roleInput"  value="ROLE_USER">user<br>
+
+        <label>admin:
+            <input required type="radio" name="roleInput" value="ROLE_ADMIN">
+        </label><br>
+        <label>user:
+            <input required type="radio" name="roleInput"  value="ROLE_USER">
+        </label><br>
     </p>
 
     <p>Submit  <input type="submit" value="GO"></p>
