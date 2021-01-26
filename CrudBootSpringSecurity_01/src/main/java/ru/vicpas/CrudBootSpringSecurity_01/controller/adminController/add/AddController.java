@@ -1,4 +1,4 @@
-package ru.vicpas.CrudBootSpringSecurity_01.controller.add;
+package ru.vicpas.CrudBootSpringSecurity_01.controller.adminController.add;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

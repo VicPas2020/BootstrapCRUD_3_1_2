@@ -1,4 +1,4 @@
-package ru.vicpas.CrudBootSpringSecurity_01.controller.showOne;
+package ru.vicpas.CrudBootSpringSecurity_01.controller.userController.showOne;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;

@@ -1,4 +1,4 @@
-package ru.vicpas.CrudBootSpringSecurity_01.controller.edit;
+package ru.vicpas.CrudBootSpringSecurity_01.controller.adminController.edit;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

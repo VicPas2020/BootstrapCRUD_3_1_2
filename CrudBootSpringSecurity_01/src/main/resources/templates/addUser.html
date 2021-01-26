@@ -2,12 +2,15 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
     <title>Title</title>
 </head>
 <body>
 
 <form th:action="@{/admin/addUser}" th:object="${user}" th:method="post">
-    <p> country  <input          type="text" th:field="*{country}">   </p>
+    <p> country  <input          type="text" th:field="*{country}" class="form-control">   </p>
     <p> city     <input          type="text" th:field="*{city}">      </p>
     <p> street   <input          type="text" th:field="*{street}">    </p><br>
     <p> username <input required type="text" th:field="*{username}">  </p>
@@ -23,14 +26,18 @@
         </label><br>
     </p>
 
-    <p>Submit  <input type="submit" value="GO"></p>
+    <p>Submit  <input type="submit" class="btn btn-primary btn-xs" value="GO"></p>
 
     <a th:href="@{/admin/show}">Back</a>
     <a th:href="@{/logout}">Logout</a>
+
+
+
 </form>
 
 
 
+<i class="glyphicon glyphicon-hand-down"></i>
 
 
 </body>

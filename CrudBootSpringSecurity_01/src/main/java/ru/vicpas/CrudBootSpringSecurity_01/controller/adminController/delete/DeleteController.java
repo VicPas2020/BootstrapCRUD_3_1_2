@@ -1,4 +1,4 @@
-package ru.vicpas.CrudBootSpringSecurity_01.controller.delete;
+package ru.vicpas.CrudBootSpringSecurity_01.controller.adminController.delete;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
