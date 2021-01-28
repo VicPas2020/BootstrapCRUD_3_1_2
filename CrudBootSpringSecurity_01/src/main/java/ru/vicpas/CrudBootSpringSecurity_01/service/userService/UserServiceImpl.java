@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void editExistedUser(User user) {
-        userRepo.save(user); // SAVE должно быть
+        userRepo.save(user);
     }
 
     @Override

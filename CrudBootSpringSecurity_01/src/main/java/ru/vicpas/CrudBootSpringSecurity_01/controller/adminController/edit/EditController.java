@@ -25,6 +25,7 @@ public class EditController {
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id, Model model ) {
+        System.out.println("GET EDIT");
         User user = userService.getByID(id); // получаем User-а
 
         // маркер состояния чекбокса
@@ -41,6 +42,8 @@ public class EditController {
     public String edit(@ModelAttribute("user") User user,
                        @RequestParam(value = "roleInput" ) String requiredRole
                        ) {
+        System.out.println("POST EDIT");
+
         Set<Role> set = new HashSet<>();// Set - на случай если будет много ролей у одного пользователя
         set.add(roleService.findRoleByRoleName(requiredRole));
 

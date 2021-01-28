@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Title</title>
 </head>
 <body>
 
-
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal"  >Add New User</button>
 
 <table class="table table-hover" border="1px" cellpadding="2" cellspacing="">
 
@@ -24,6 +24,10 @@
         <th>password</th>
         <th>edit/delete</th>
         <th>role1</th>
+        <th>edit</th>
+        <th>delete</th>
+
+
 <!--        <th>role2</th>-->
 
     </tr>
@@ -45,21 +49,202 @@
             <a th:href="@{'/admin/delete/' + ${user.id}}">delete</a>
         </td>
 
-        <td th:each="role : ${user.getRoles()}" th:text="${role.getRole()}"> Roles </td>
+        <td th:each="role : ${user.getRoles()}" th:text="${role.getRole()}" > Roles </td>
+<!--        data-target="#editModal"-->
+        <td><button type="button" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#editModal' + ${user.id}"  >Edit</button></td>
 
+        <td><button type="button" class="btn btn-danger"  data-toggle="modal" th:attr="data-target='#deleteModal' + ${user.id}"  >Delete</button></td>
+
+
+<!--        <td><a th:href="@{/admin/edit/(id=${user.id})}"   class="btn btn-warning"  >Edit</a></td>-->
     </tr>
+
 
     <tbody>
 </table>
+<!--.................   DELETE  .....................................................-->
 
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" th:each="user : ${allUsers}" th:id="'deleteModal' + ${user.id}"  tabindex="-1" role="dialog" aria-labelledby="delModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="delModalLabel">Удаление пользователя</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <span th:text="${user.username}"> Удалить User:  </span>
+                <span th:text="${user.id}"> Удалить User:  </span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a th:href="@{'/admin/delete/' + ${user.id}}" th:method="get" type="button" class="btn btn-primary" >Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--............... ADD .....................................-->
+
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <form th:action="@{/admin/addUser}" th:object="${user}" th:method="post">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+
+            <div class="modal-body">
+                    <div class="form-group">
+                        <label for="country-name" class="col-form-label">Country:</label>
+                        <input type="text" class="form-control" id="country-name" name="country">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="city-name" class="col-form-label">City:</label>
+                        <input type="text" class="form-control" id="city-name" name="city">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="street-name" class="col-form-label">Street:</label>
+                        <input type="text" class="form-control" id="street-name" name="street">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="user-name" class="col-form-label">Username:</label>
+                        <input type="text" class="form-control" id="user-name" name="username">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="pass-name" class="col-form-label">Password:</label>
+                        <input type="text" class="form-control" id="pass-name" name="password">
+                    </div>
+
+                    <div class="form-group">Role
+<!--                        <label for="role-name" class="col-form-label" >Role:</label>-->
+                        <input required type="radio" class="form-control" id="pass-name11" name="roleInput" value="ROLE_ADMIN"  >
+                        <input required type="radio" class="form-control" id="pass-name22" name="roleInput" value="ROLE_USER" >
+                    </div>
+
+                    <p>  <input type="submit" class="btn btn-primary btn-xs" value="GO"></p>
+
+
+
+            </div>
+
+        </div>
+    </div>
+  </form>
+</div>
+
+<!--/////////////////////////////// EDIT  //////////////////////////////////////////////////////-->
+
+<!--id="editModal"-->
+<!--                           это ссылка на кнопку  th:id="'editModal' + ${user.id}-->
+<div th:each="user : ${allUsers}" class="modal fade" th:id="'editModal' + ${user.id}"  tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+
+    <form th:action="@{/admin/edit}" data-toggle="modal"  th:object="${user}"   th:method="post">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">EDIT</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+
+                <div class="modal-body">
+
+
+                    <div class="form-group">
+                        <label for="id-name" class="col-form-label">Country:</label>
+                        <input type="hidden" class="form-control" id="id-name" name="id" th:value="${user.id}" >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="country-name" class="col-form-label">Country:</label>
+<!--                        value="${__${user.country}__}"-->
+                        <input type="text" class="form-control" id="country-name1" name="country" th:value="${user.country}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="city-name" class="col-form-label">City:</label>
+                        <input type="text" class="form-control" id="city-name1" name="city" th:value="${user.city}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="street-name" class="col-form-label">Street:</label>
+                        <input type="text" class="form-control" id="street-name1" name="street" th:value="${user.street}">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="user-name" class="col-form-label">Username:</label>
+                        <input type="text" class="form-control" id="user-name1" name="username" th:value="${user.username}">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="pass-name" class="col-form-label">Password:</label>
+                        <input type="text" class="form-control" id="pass-name1" name="password" th:value="${user.password}">
+                    </div>
+
+                    <div class="form-group">Role
+                          <label for="role-admin" class="col-form-label" >Role:</label>
+                        <input type="radio" class="form-control" name="roleInput" id="role-admin"  value="ROLE_ADMIN" th:checked="${roleAdmin}" >
+
+                        <label for="role-user" class="col-form-label" >Role:</label>
+                        <input type="radio" class="form-control" name="roleInput"  id="role-user"  value="ROLE_USER" th:checked="${roleUser}">
+
+<!--                        <input required type="radio" class="form-control"   name="roleInput" value="ROLE_ADMIN">-->
+<!--                        <input required type="radio" class="form-control"   name="roleInput" value="ROLE_USER">-->
+                    </div>
+
+                    <p>  <input type="submit" class="btn btn-primary btn-xs" value="GO"></p>
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+<!--///////////////////////////////////////////////////////////////////////////////-->
 <table>
 
-    <a th:href="@{/admin/addUser}">Add User</a> <br>
+<!--    <a th:href="@{/admin/addUser}">Add User</a> <br>-->
 
     <button class="btn btn-dark">
     <a th:href="@{/logout}">Logout</a>
     </button>
 </table>
 
+
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -25,10 +25,15 @@ public class AddController {
         this.roleService = roleSevrice;
     }
 
+
+
+
+    // TODO: нужен только при переходе на НОВУЮ страницу Add
     @GetMapping("/addUser")
     public String addUser(Model model) {
         User user = new User();
         model.addAttribute(user);
+        System.out.println("==ADD GET==");
         return "/addUser";
     }
 
@@ -40,6 +45,8 @@ public class AddController {
         setRoles.add(roleService.findRoleByRoleName(requiredRole));
         user.setRoles(setRoles);
         userService.addNewUser(user);
+        System.out.println("==ADD POST==");
+
         return "redirect:/admin/show";
     }
 
