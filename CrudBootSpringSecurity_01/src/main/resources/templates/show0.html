@@ -22,10 +22,11 @@
         <th>street</th>
         <th>username</th>
         <th>password</th>
-        <th>edit/delete</th>
-        <th>role1</th>
+<!--        <th>edit/delete</th>-->
         <th>edit</th>
         <th>delete</th>
+        <th>role1</th>
+        <th>role2</th>
 
 
 <!--        <th>role2</th>-->
@@ -41,20 +42,23 @@
         <td th:text="${user.city}"> </td>
         <td th:text="${user.street}"> </td>
         <td th:text="${user.username}"> </td>
-<!--        <td  > *** </td>-->
         <td th:text=${user.password} >  </td>
 
-        <td>
-            <a th:href="@{'/admin/edit/' + ${user.id}}">edit</a>
-            <a th:href="@{'/admin/delete/' + ${user.id}}">delete</a>
-        </td>
+<!--        <td>-->
+<!--            <a th:href="@{'/admin/edit/' + ${user.id}}">edit</a>-->
+<!--            <a th:href="@{'/admin/delete/' + ${user.id}}">delete</a>-->
+<!--        </td>-->
 
-        <td th:each="role : ${user.getRoles()}" th:text="${role.getRole()}" > Roles </td>
+
+
 <!--        data-target="#editModal"-->
         <td><button type="button" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#editModal' + ${user.id}"  >Edit</button></td>
-
         <td><button type="button" class="btn btn-danger"  data-toggle="modal" th:attr="data-target='#deleteModal' + ${user.id}"  >Delete</button></td>
 
+
+        <td
+                th:each="role : ${user.getRoles()}" th:text="${role.getRole()}" > Roles
+        </td>
 
 <!--        <td><a th:href="@{/admin/edit/(id=${user.id})}"   class="btn btn-warning"  >Edit</a></td>-->
     </tr>
@@ -77,10 +81,82 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <div class="modal-body">
-                <span th:text="${user.username}"> Удалить User:  </span>
-                <span th:text="${user.id}"> Удалить User:  </span>
+                <div class="form-group">
+                    <label for="id-name" class="col-form-label">Country:</label>
+                    <input type="hidden" class="form-control" id="id-name3" name="id" th:value="${user.id}" disabled>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="country-name" class="col-form-label">Country:</label>
+                    <!--                        value="${__${user.country}__}"-->
+                    <input type="text" class="form-control" id="country-name3" name="country" th:value="${user.country}" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label for="city-name" class="col-form-label">City:</label>
+                    <input type="text" class="form-control" id="city-name3" name="city" th:value="${user.city}" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label for="street-name" class="col-form-label">Street:</label>
+                    <input type="text" class="form-control" id="street-name3" name="street" th:value="${user.street}" disabled>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="user-name" class="col-form-label">Username:</label>
+                    <input type="text" class="form-control" id="user-name3" name="username" th:value="${user.username}" disabled>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="pass-name" class="col-form-label">Password:</label>
+                    <input type="text" class="form-control" id="pass-name3" name="password" th:value="${user.password}" disabled>
+                </div>
+
+                <!--                    <div class="form-group"  th:each="role : ${user.getRoles()}" >Role-->
+                <div class="form-group"  >
+
+                    <!--                        <label for="role-admin" class="col-form-label" >Role:</label>-->
+                    <!--                        <input type="radio" class="form-control" name="roleInput" id="role-admin"  value="ROLE_ADMIN" th:checked="${roleAdmin}" >-->
+
+                    <!--                        <label for="role-user" class="col-form-label" >Role:</label>-->
+                    <!--                        <input type="radio" class="form-control" name="roleInput"  id="role-user"  value="ROLE_USER" th:checked="${roleUser}">-->
+
+                    <!--                        <input required type="radio" class="form-control"   name="roleInput" value="ROLE_ADMIN">-->
+                    <!--                        <input required type="radio" class="form-control"   name="roleInput" value="ROLE_USER">-->
+
+
+                    <!--                        <div th:each="role : ${user.getRoles()}" >-->
+
+                    <label  for="role-name2"  class="col-form-label" >Select roles</label>
+
+                    <select  th:each="role : ${user.getRoles()}" name="roleInput" multiple id="role-name3" disabled>
+
+                        <option  value=""     th:text="${role.getRole()}"     > USER  </option>
+<!--                        <option  value="ROLE_ADMIN"    th:selected="${role.getRole()=='ROLE_ADMIN'}"    > ADMIN </option>-->
+
+                        <!--                                -->
+                        <!--                                <option-->
+                        <!--                                        th:each="role : ${user.getRoles()}"-->
+                        <!--                                        th:value="${role.getRole()}"-->
+                        <!--                                        th:text="${role.getRole()}"-->
+                        <!--                                        th:selected="${role.getRole()=='ROLE_ADMIN' or role.getRole()=='ROLE_USER'}" >-->
+
+                        <!--                                </option>-->
+
+                    </select>
+                </div>
+
+
+                <!--                .............................-->
+<!--                <span th:text="${user.username}"> Удалить User:  </span>-->
+<!--                <span th:text="${user.id}"> Удалить User:  </span>-->
             </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <a th:href="@{'/admin/delete/' + ${user.id}}" th:method="get" type="button" class="btn btn-primary" >Delete</a>
@@ -96,62 +172,65 @@
 
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <form th:action="@{/admin/addUser}" th:object="${user}" th:method="post">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+
+                <div class="modal-body">
+                        <div class="form-group">
+                            <label for="country-name" class="col-form-label">Country:</label>
+                            <input type="text" class="form-control" id="country-name" name="country">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="city-name" class="col-form-label">City:</label>
+                            <input type="text" class="form-control" id="city-name" name="city">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="street-name" class="col-form-label">Street:</label>
+                            <input type="text" class="form-control" id="street-name" name="street">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="user-name" class="col-form-label">Username:</label>
+                            <input type="text" class="form-control" id="user-name" name="username">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pass-name" class="col-form-label">Password:</label>
+                            <input type="text" class="form-control" id="pass-name" name="password">
+                        </div>
+
+
+
+                        <div class="form-group">
+<!--                            <label for="role-role" class="col-form-label" >Role:</label>-->
+
+<!--                            <input required type="radio" class="form-control" id="pass-name11" name="roleInput" value="ROLE_ADMIN"  >-->
+<!--                            <input required type="radio" class="form-control" id="pass-name22" name="roleInput" value="ROLE_USER" >-->
+
+                                <label for="role-name"  class="col-form-label" >Select roles</label>
+
+                                <select   name="roleInput" multiple id="role-name" required  >
+                                    <option    value="ROLE_ADMIN"> ADMIN   </option>
+                                    <option    value="ROLE_USER" > USER  </option>
+                                </select>
+                        </div>
+                       <p>  <input type="submit" class="btn btn-primary btn-xs" value="GO"></p>
+                </div>
             </div>
-
-
-            <div class="modal-body">
-                    <div class="form-group">
-                        <label for="country-name" class="col-form-label">Country:</label>
-                        <input type="text" class="form-control" id="country-name" name="country">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="city-name" class="col-form-label">City:</label>
-                        <input type="text" class="form-control" id="city-name" name="city">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="street-name" class="col-form-label">Street:</label>
-                        <input type="text" class="form-control" id="street-name" name="street">
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="user-name" class="col-form-label">Username:</label>
-                        <input type="text" class="form-control" id="user-name" name="username">
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="pass-name" class="col-form-label">Password:</label>
-                        <input type="text" class="form-control" id="pass-name" name="password">
-                    </div>
-
-                    <div class="form-group">Role
-<!--                        <label for="role-name" class="col-form-label" >Role:</label>-->
-                        <input required type="radio" class="form-control" id="pass-name11" name="roleInput" value="ROLE_ADMIN"  >
-                        <input required type="radio" class="form-control" id="pass-name22" name="roleInput" value="ROLE_USER" >
-                    </div>
-
-                    <p>  <input type="submit" class="btn btn-primary btn-xs" value="GO"></p>
-
-
-
-            </div>
-
         </div>
-    </div>
   </form>
 </div>
 
-<!--/////////////////////////////// EDIT  //////////////////////////////////////////////////////-->
+<!--............... EDIT  .................................-->
 
 <!--id="editModal"-->
 <!--                           это ссылка на кнопку  th:id="'editModal' + ${user.id}-->
@@ -168,9 +247,7 @@
                 </div>
 
 
-                <div class="modal-body">
-
-
+                <div class="modal-body" >
                     <div class="form-group">
                         <label for="id-name" class="col-form-label">Country:</label>
                         <input type="hidden" class="form-control" id="id-name" name="id" th:value="${user.id}" >
@@ -205,21 +282,41 @@
                         <input type="text" class="form-control" id="pass-name1" name="password" th:value="${user.password}">
                     </div>
 
-                    <div class="form-group">Role
-                          <label for="role-admin" class="col-form-label" >Role:</label>
-                        <input type="radio" class="form-control" name="roleInput" id="role-admin"  value="ROLE_ADMIN" th:checked="${roleAdmin}" >
+<!--                    <div class="form-group"  th:each="role : ${user.getRoles()}" >Role-->
+                    <div class="form-group"  >Role
 
-                        <label for="role-user" class="col-form-label" >Role:</label>
-                        <input type="radio" class="form-control" name="roleInput"  id="role-user"  value="ROLE_USER" th:checked="${roleUser}">
+<!--                        <label for="role-admin" class="col-form-label" >Role:</label>-->
+<!--                        <input type="radio" class="form-control" name="roleInput" id="role-admin"  value="ROLE_ADMIN" th:checked="${roleAdmin}" >-->
+
+<!--                        <label for="role-user" class="col-form-label" >Role:</label>-->
+<!--                        <input type="radio" class="form-control" name="roleInput"  id="role-user"  value="ROLE_USER" th:checked="${roleUser}">-->
 
 <!--                        <input required type="radio" class="form-control"   name="roleInput" value="ROLE_ADMIN">-->
 <!--                        <input required type="radio" class="form-control"   name="roleInput" value="ROLE_USER">-->
+
+
+<!--                        <div th:each="role : ${user.getRoles()}" >-->
+
+                            <label  for="role-name2"  class="col-form-label" >Select roles</label>
+
+                            <select  th:each="role : ${user.getRoles()}" name="roleInput" multiple id="role-name2" >
+
+                                <option  value="ROLE_USER"     th:selected="${role.getRole()=='ROLE_USER'}"     > USER  </option>
+                                <option  value="ROLE_ADMIN"    th:selected="${role.getRole()=='ROLE_ADMIN'}"    > ADMIN </option>
+
+<!--                                -->
+<!--                                <option-->
+<!--                                        th:each="role : ${user.getRoles()}"-->
+<!--                                        th:value="${role.getRole()}"-->
+<!--                                        th:text="${role.getRole()}"-->
+<!--                                        th:selected="${role.getRole()=='ROLE_ADMIN' or role.getRole()=='ROLE_USER'}" >-->
+
+<!--                                </option>-->
+
+                            </select>
                     </div>
 
                     <p>  <input type="submit" class="btn btn-primary btn-xs" value="GO"></p>
-
-
-
                 </div>
 
             </div>

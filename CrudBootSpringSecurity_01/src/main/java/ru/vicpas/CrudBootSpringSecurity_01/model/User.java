@@ -6,7 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collector;
 
 @Getter    //TODO: проверить геттеры
 @Setter
@@ -32,7 +34,7 @@ public class User implements UserDetails {
     @Column(name = "street")
     private String street;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "password")
@@ -42,7 +44,7 @@ public class User implements UserDetails {
     @JoinTable(name = "users_roles",
             joinColumns        = {@JoinColumn(name = "id_from_users")},
             inverseJoinColumns = {@JoinColumn(name = "id_from_roles")})
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     ///////////////////   Overrided ////////////////////////////////
 
@@ -83,5 +85,11 @@ public class User implements UserDetails {
         this.username = username;
         this.password = password;
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        //System.out.println(roles);
+        return "User + " +  "roles=" + roles ;
     }
 }

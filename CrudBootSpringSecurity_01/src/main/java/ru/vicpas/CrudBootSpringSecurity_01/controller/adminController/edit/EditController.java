@@ -27,27 +27,40 @@ public class EditController {
     public String edit(@PathVariable("id") Long id, Model model ) {
         System.out.println("GET EDIT");
         User user = userService.getByID(id); // получаем User-а
-
-        // маркер состояния чекбокса
-        boolean roleAdmin = user.getRoles().stream().anyMatch(c->c.getRole().equals("ROLE_ADMIN"));
-        boolean roleUser  = user.getRoles().stream().anyMatch(c->c.getRole().equals("ROLE_USER"));
-
-        model.addAttribute("roleAdmin", roleAdmin);
-        model.addAttribute("roleUser",  roleUser);
+//
+//        // маркер состояния чекбокса ДЛЯ ЧЕКБОКСА
+//        boolean roleAdmin = user.getRoles().stream().anyMatch(c->c.getRole().equals("ROLE_ADMIN"));
+//        boolean roleUser  = user.getRoles().stream().anyMatch(c->c.getRole().equals("ROLE_USER"));
+//        System.out.println(roleAdmin);
+//        System.out.println(roleUser);
+//
+//        model.addAttribute("roleAdmin", roleAdmin);
+//        model.addAttribute("roleUser",  roleUser);
         model.addAttribute("user", user);
         return "editUser";
     }
 
+
+    //TODO:  select список на экране на EDIT дублируется! Это проблема фронт-энда
+
     @PostMapping("/edit")
-    public String edit(@ModelAttribute("user") User user,
-                       @RequestParam(value = "roleInput" ) String requiredRole
+    public String edit(@ModelAttribute("user") User user, Model model,
+                       @RequestParam(value = "roleInput" ) String roleRoles
                        ) {
-        System.out.println("POST EDIT");
 
-        Set<Role> set = new HashSet<>();// Set - на случай если будет много ролей у одного пользователя
-        set.add(roleService.findRoleByRoleName(requiredRole));
+        Set<Role> setRoles = new HashSet<>();// Set - на случай если будет много ролей у одного пользователя
 
-        user.setRoles(set);
+        if(roleRoles.contains("ROLE_USER")) {
+            setRoles.add(roleService.findRoleByRoleName("ROLE_USER"));
+        }
+
+        if(roleRoles.contains("ROLE_ADMIN")) {
+            setRoles.add(roleService.findRoleByRoleName("ROLE_ADMIN"));
+        }
+
+
+
+        user.setRoles(setRoles);
         userService.editExistedUser(user);
         return "redirect:/admin/show";
     }

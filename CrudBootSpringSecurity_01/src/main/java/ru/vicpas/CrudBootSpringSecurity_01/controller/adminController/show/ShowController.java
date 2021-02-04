@@ -23,7 +23,9 @@ public class ShowController {
     public String showAll(Model model){
         List<User> allUsers = userRepo.findAll();
         model.addAttribute("allUsers", allUsers);
-        return "show";
+//        model.addAttribute("roleInputADMIN", "ROLE_ADMIN");
+//        model.addAttribute("roleInputUSER", "ROLE_USER");
+        return "show0";
     }
 }
 
