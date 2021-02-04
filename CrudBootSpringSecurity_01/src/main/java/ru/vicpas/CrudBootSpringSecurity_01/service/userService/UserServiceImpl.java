@@ -2,10 +2,11 @@ package ru.vicpas.CrudBootSpringSecurity_01.service.userService;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+//import org.springframework.transaction.annotation.Transactional;
 import ru.vicpas.CrudBootSpringSecurity_01.model.User;
 import ru.vicpas.CrudBootSpringSecurity_01.repository.UserRepo;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -36,7 +37,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void editExistedUser(User user) {
-        userRepo.save(user);
+        System.out.println("SAVE " + userRepo.save(user));
+        //userRepo.save(user);
     }
 
     @Override

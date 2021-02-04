@@ -23,28 +23,28 @@ public class EditController {
         this.roleService = roleService;
     }
 
-    @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Long id, Model model ) {
-        System.out.println("GET EDIT");
-        User user = userService.getByID(id); // получаем User-а
-//
-//        // маркер состояния чекбокса ДЛЯ ЧЕКБОКСА
-//        boolean roleAdmin = user.getRoles().stream().anyMatch(c->c.getRole().equals("ROLE_ADMIN"));
-//        boolean roleUser  = user.getRoles().stream().anyMatch(c->c.getRole().equals("ROLE_USER"));
-//        System.out.println(roleAdmin);
-//        System.out.println(roleUser);
-//
-//        model.addAttribute("roleAdmin", roleAdmin);
-//        model.addAttribute("roleUser",  roleUser);
-        model.addAttribute("user", user);
-        return "editUser";
-    }
+//    @GetMapping("/edit/{id}")
+//    public String edit(@PathVariable("id") Long id, Model model ) {
+//        System.out.println("GET EDIT");
+//        User user = userService.getByID(id); // получаем User-а
+////
+////        // маркер состояния чекбокса ДЛЯ ЧЕКБОКСА
+////        boolean roleAdmin = user.getRoles().stream().anyMatch(c->c.getRole().equals("ROLE_ADMIN"));
+////        boolean roleUser  = user.getRoles().stream().anyMatch(c->c.getRole().equals("ROLE_USER"));
+////        System.out.println(roleAdmin);
+////        System.out.println(roleUser);
+////
+////        model.addAttribute("roleAdmin", roleAdmin);
+////        model.addAttribute("roleUser",  roleUser);
+//        model.addAttribute("user", user);
+//        return "editUser";
+//    }
 
 
-    //TODO:  select список на экране на EDIT дублируется! Это проблема фронт-энда
+    //TODO:  select список на экране на EDIT дублируется! Это проблем фронт-энда
 
     @PostMapping("/edit")
-    public String edit(@ModelAttribute("user") User user, Model model,
+    public String edit(@ModelAttribute("user") User user,
                        @RequestParam(value = "roleInput" ) String roleRoles
                        ) {
 
@@ -59,9 +59,11 @@ public class EditController {
         }
 
 
-
+        System.out.println("POST EDIT 1");
         user.setRoles(setRoles);
         userService.editExistedUser(user);
+        System.out.println("POST EDIT 2");
+
         return "redirect:/admin/show";
     }
 }

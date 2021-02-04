@@ -41,26 +41,23 @@
 <!--    </nav>-->
 <!--</div>-->
 
-
-
-                        <!--Навигация по ролям-->
 <div class="container-fluid"  >
     <div class="row" >
-        <div class="col-3" >
-            <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <li >
-                    <a class="nav-link active"    id="v-pills-home-tab"    data-toggle="pill" href="#v-pills-home"    role="tab" aria-controls="v-pills-home"    aria-selected="true">Admin</a>
-                </li>
-                <li >
-                    <a class="nav-link"           id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">User</a>
-                </li>
-            </ul>
-        </div>
+            <div class="col-3" >
+                <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <li >
+                        <a class="nav-link active"         id="v-pills-home-tab"    data-toggle="pill" href="#v-pills-home"    role="tab" aria-controls="v-pills-home"    aria-selected="true">Admin</a>
+                    </li>
+                    <li >
+                        <a class="nav-link"                id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">User</a>
+                    </li>
+                </ul>
+            </div>
 
 
 
-                <!--НАвигация по функционалу-->
-        <div class="tab-content"   >
+
+        <div class="tab-content">
 
 <!--        Первый экран-->
             <div class="tab-pane active" id="v-pills-home">
@@ -73,13 +70,15 @@
                             <a class="nav-link active"  href="#Active" data-toggle="tab"   >User table</a>
                         </li>
                         <li>
-                            <a class="nav-link"         href="#Add"    data-toggle="tab"  >Add New User</a>
+                            <a class="nav-link"         href="#Add" data-toggle="tab"  >Add New User</a>
                         </li>
                     </ul>
 
 <!--                                    Содержимое первого экрана-->
-                                   <div class="tab-content"  >
+                             <div class="tab-content"  >
                                         <div class="tab-pane active" id="Active"  >
+
+
                                             <table>
                                                 <thead class="table-hover" >
                                                     <tr>
@@ -94,14 +93,11 @@
                                                         <th >delete</th>
                                                         <th>role1</th>
                                                         <th>role2</th>
-
-                                                        <!--        <th>role2</th>-->
-
                                                     </tr>
-                                                    </thead>
+                                                </thead>
 
 
-                                                    <tbody>
+                                                <tbody>
                                                     <tr th:each="user : ${allUsers}">
                                                         <td th:text="${user.id}"> </td>
                                                         <td th:text="${user.country}"> </td>
@@ -109,87 +105,93 @@
                                                         <td th:text="${user.street}"> </td>
                                                         <td th:text="${user.username}"> </td>
                                                         <td th:text="${user.password}" hidden>  </td>
-
-                                                        <!--        <td>-->
-                                                        <!--            <a th:href="@{'/admin/edit/' + ${user.id}}">edit</a>-->
-                                                        <!--            <a th:href="@{'/admin/delete/' + ${user.id}}">delete</a>-->
-                                                        <!--        </td>-->
-
-
-
                                                         <!--        data-target="#editModal"-->
                                                         <td><button type="button" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#editModal' + ${user.id}"  >Edit</button></td>
                                                         <td><button type="button" class="btn btn-danger"  data-toggle="modal" th:attr="data-target='#deleteModal' + ${user.id}"  >Delete</button></td>
 
-
                                                         <td
                                                                 th:each="role : ${user.getRoles()}" th:text="${role.getRole()}" > Roles
                                                         </td>
-
-                                                        <!--        <td><a th:href="@{/admin/edit/(id=${user.id})}"   class="btn btn-warning"  >Edit</a></td>-->
                                                     </tr>
                                                 <tbody>
-                                            </table>
+                                             </table>
                                         </div>
-
-
-                                        <!--............... ADD .....................................-->
 
                                         <div  class="tab-pane" id="Add">
+                                            <table>
+                                                <tr>
+                                                    <td>2222222</td>
+                                                    <td>2222222</td>
+                                                    <td>2222222</td>
+                                                </tr>
+                                            </table>
+                                            <!--............... ADD .....................................-->
+
 <!--                                            <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
-                                                <form th:action="@{/admin/addUser}" th:object="${user}" th:method="post">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
+<!--                                                <form th:action="@{/admin/addUser}" th:object="${user}" th:method="post">-->
+<!--                                                    <div class="modal-dialog" role="document">-->
+<!--                                                        <div class="modal-content">-->
 
 
-                                                            <div class="modal-body">
-                                                                <div class="form-group">
-                                                                    <label for="country-name" class="col-form-label">Country:</label>
-                                                                    <input type="text" class="form-control" id="country-name" name="country">
-                                                                </div>
+<!--                                                            <div class="modal-body">-->
+<!--                                                                <div class="form-group">-->
+<!--                                                                    <label for="country-name" class="col-form-label">Country:</label>-->
+<!--                                                                    <input type="text" class="form-control" id="country-name" name="country">-->
+<!--                                                                </div>-->
 
-                                                                <div class="form-group">
-                                                                    <label for="city-name" class="col-form-label">City:</label>
-                                                                    <input type="text" class="form-control" id="city-name" name="city">
-                                                                </div>
+<!--                                                                <div class="form-group">-->
+<!--                                                                    <label for="city-name" class="col-form-label">City:</label>-->
+<!--                                                                    <input type="text" class="form-control" id="city-name" name="city">-->
+<!--                                                                </div>-->
 
-                                                                <div class="form-group">
-                                                                    <label for="street-name" class="col-form-label">Street:</label>
-                                                                    <input type="text" class="form-control" id="street-name" name="street">
-                                                                </div>
+<!--                                                                <div class="form-group">-->
+<!--                                                                    <label for="street-name" class="col-form-label">Street:</label>-->
+<!--                                                                    <input type="text" class="form-control" id="street-name" name="street">-->
+<!--                                                                </div>-->
 
-                                                                <div class="form-group">
-                                                                    <label for="user-name" class="col-form-label">Username:</label>
-                                                                    <input type="text" class="form-control" id="user-name" name="username">
-                                                                </div>
+<!--                                                                <div class="form-group">-->
+<!--                                                                    <label for="user-name" class="col-form-label">Username:</label>-->
+<!--                                                                    <input type="text" class="form-control" id="user-name" name="username">-->
+<!--                                                                </div>-->
 
-                                                                <div class="form-group">
-                                                                    <label for="pass-name" class="col-form-label">Password:</label>
-                                                                    <input type="text" class="form-control" id="pass-name" name="password">
-                                                                </div>
+<!--                                                                <div class="form-group">-->
+<!--                                                                    <label for="pass-name" class="col-form-label">Password:</label>-->
+<!--                                                                    <input type="text" class="form-control" id="pass-name" name="password">-->
+<!--                                                                </div>-->
 
 
 
-                                                                <div class="form-group">
-                                                                    <!--                            <label for="role-role" class="col-form-label" >Role:</label>-->
+<!--                                                                <div class="form-group">-->
+<!--                                                                    &lt;!&ndash;                            <label for="role-role" class="col-form-label" >Role:</label>&ndash;&gt;-->
 
-                                                                    <!--                            <input required type="radio" class="form-control" id="pass-name11" name="roleInput" value="ROLE_ADMIN"  >-->
-                                                                    <!--                            <input required type="radio" class="form-control" id="pass-name22" name="roleInput" value="ROLE_USER" >-->
+<!--                                                                    &lt;!&ndash;                            <input required type="radio" class="form-control" id="pass-name11" name="roleInput" value="ROLE_ADMIN"  >&ndash;&gt;-->
+<!--                                                                    &lt;!&ndash;                            <input required type="radio" class="form-control" id="pass-name22" name="roleInput" value="ROLE_USER" >&ndash;&gt;-->
 
-                                                                    <label for="role-name"  class="col-form-label" >Select roles</label>
+<!--                                                                    <label for="role-name"  class="col-form-label" >Select roles</label>-->
 
-                                                                    <select   name="roleInput" multiple id="role-name" required  >
-                                                                        <option    value="ROLE_ADMIN"> ADMIN   </option>
-                                                                        <option    value="ROLE_USER" > USER  </option>
-                                                                    </select>
-                                                                </div>
-                                                                <p>  <input type="submit" class="btn btn-primary btn-xs" value="GO"></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                        </div>
-                                   </div>
+<!--                                                                    <select   name="roleInput" multiple id="role-name" required  >-->
+<!--                                                                        <option    value="ROLE_ADMIN"> ADMIN   </option>-->
+<!--                                                                        <option    value="ROLE_USER" > USER  </option>-->
+<!--                                                                    </select>-->
+<!--                                                                </div>-->
+<!--                                                                <p>  <input type="submit" class="btn btn-primary btn-xs" value="GO"></p>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </form>-->
+<!--                                            </div>-->
+                                       </div>
+
+<!--                                        <div class="tab-pane" id="FORE" >-->
+<!--                                            <table>-->
+<!--                                                <tr>-->
+<!--                                                    <td>===</td>-->
+<!--                                                    <td>-&#45;&#45;</td>-->
+<!--                                                    <td>***</td>-->
+<!--                                                </tr>-->
+<!--                                            </table>-->
+<!--                                        </div>-->
+                             </div>
             </div>
 
 
@@ -199,6 +201,15 @@
             <div class="tab-pane" id="v-pills-profile" >
                 <h4 > <b> USER PANEL</b></h4><br>
                 <div>
+
+
+                    <table>
+                        <tr>
+                            <td>2222222</td>
+                            <td>2222222</td>
+                            <td>2222222</td>
+                        </tr>
+                    </table>
 <!--                    <table>-->
 <!--                        <thead class="table-hover" >-->
 <!--                        <tr>-->
@@ -253,7 +264,7 @@
 
 
 
-<!--MODAL-->
+                            <!--MODAL-->
 <!--//////////////////////EDIT///////////////////////////////////-->
 
 

@@ -34,7 +34,7 @@ public class User implements UserDetails {
     @Column(name = "street")
     private String street;
 
-    @Column(name = "username", unique = true)
+    @Column(name = "username"/*, unique = true*/)
     private String username;
 
     @Column(name = "password")
