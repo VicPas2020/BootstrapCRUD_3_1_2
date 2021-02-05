@@ -25,7 +25,6 @@ public class ShowController {
 
     @GetMapping("/show")
     public String showAll(Model model){
-        //System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
         List<User> allUsers = userRepo.findAll();
         model.addAttribute("allUsers", allUsers);
 
@@ -33,15 +32,8 @@ public class ShowController {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             model.addAttribute("uk", authentication.getName());
             model.addAttribute("ur", authentication.getAuthorities());
-
             model.addAttribute("us", userRepo.findUserByUsername(authentication.getName()) );
-            //System.out.println(userRepo.findUserByUsername(authentication.getName()));
-
         }
-
-
-
-
         return "navtab";
     }
 }
