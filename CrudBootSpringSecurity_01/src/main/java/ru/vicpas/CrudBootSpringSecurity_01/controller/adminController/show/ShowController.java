@@ -29,15 +29,15 @@ public class ShowController {
         List<User> allUsers = userRepo.findAll();
         model.addAttribute("allUsers", allUsers);
 
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-//            model.addAttribute("uk", authentication.getName());
-//            model.addAttribute("ur", authentication.getAuthorities());
-//
-//            model.addAttribute("us", userRepo.findUserByUsername(authentication.getName()) );
-//            //System.out.println(userRepo.findUserByUsername(authentication.getName()));
-//
-//        }
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            model.addAttribute("uk", authentication.getName());
+            model.addAttribute("ur", authentication.getAuthorities());
+
+            model.addAttribute("us", userRepo.findUserByUsername(authentication.getName()) );
+            //System.out.println(userRepo.findUserByUsername(authentication.getName()));
+
+        }
 
 
 
