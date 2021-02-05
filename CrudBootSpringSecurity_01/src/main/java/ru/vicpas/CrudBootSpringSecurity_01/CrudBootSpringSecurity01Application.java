@@ -22,6 +22,9 @@ public class CrudBootSpringSecurity01Application {
 		SpringApplication.run(CrudBootSpringSecurity01Application.class, args);
 	}
 
+
+
+	// Создает таблицу ролей
 	@Order(1)
 	@Bean
 	CommandLineRunner initDatabase__AnyNamePossible_Roles(RoleRepo roleRepository) {
@@ -32,7 +35,7 @@ public class CrudBootSpringSecurity01Application {
 			}
 		};
 	}
-
+	// Создает одного Админа (root root)
 	@Order(2)
 	@Bean
 	CommandLineRunner initDatabase__Admin(UserRepo userRepository ) {

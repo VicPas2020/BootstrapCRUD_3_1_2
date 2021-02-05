@@ -30,11 +30,10 @@
 <div >
     <nav class="navbar navbar-light bg-secondary" >
         <div class="container-fluid" >
-            <p class="navbar-brand" th:text="'user: ' + ${uk}" >Navbar</p>
-            <p class="navbar-brand" th:text="'with roles: ' + ${ur}">Navbar</p>
+            <p class="navbar-brand" th:text="'Username: ' + ${uk}" >user</p>
+            <p class="navbar-brand" th:text="'with roles: ' + ${ur}">roles</p>
             <a class="nav-link" th:href="@{/logout}" style="color: #e3f2fd">LOGOUT</a>
         </div>
-
     </nav>
 </div>
 <!--......................................................-->
@@ -42,229 +41,205 @@
 
 
 
+<div class="row" >
 
+    <div class="col-2" >
 
-<!--<div class="container-fluid">-->
-    <div class="row" >
+        <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 
-        <div class="col-2" >
-
-            <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-
-                <li >
-                    <a class="nav-link active"    id="v-pills-home-tab"    data-toggle="pill" href="#v-pills-home"    role="tab" aria-controls="v-pills-home"    aria-selected="true">Admin</a>
-                </li>
-                <li >
-                    <a class="nav-link"           id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">User</a>
-                </li>
-            </ul>
-        </div>
-
-
-
-
-        <div class="col-10">
-                <div class="tab-content">
-
-                    <!--        Первый КОНТЕНТ ADMIN-->
-                    <div class="tab-pane active" id="v-pills-home">
-
-                        <!--...... ADD & TABLE...........-->
-                        <div class="col-10" >
-                            <div class="tab-content">
-                                <h4  > <b> ADMIN PANEL</b></h4><br>
-
-                                <ul class="nav nav-pills">
-                                    <!--    ссыылка №1 -->
-                                    <li class="nav-item">
-                                        <a class="nav-link active"  data-toggle="tab" href="#menu1">Table</a>
-                                    </li>
-
-                                    <!--    ссыылка №2-->
-                                    <li class="nav-item" >
-                                        <a class="nav-link  " data-toggle="tab" href="#home">Add</a>
-                                    </li>
-
-                                </ul>
-                                <!--    Содержание по ссылке №1-->
-                                <div id="menu1" class="tab-pane active">
-
-                                    <!--.................................... таблица  ...............................................border="1px" cellpadding="2" cellspacing="" data-target="#showUsers" -->
-                                    <table class="table table-hover" >
-
-                                        <thead  >
-                                        <tr>
-                                            <th>id</th>
-                                            <th>country</th>
-                                            <th>city</th>
-                                            <th>street</th>
-                                            <th>username</th>
-                                            <th>password</th>
-                                            <th>edit</th>
-                                            <th>delete</th>
-                                            <th>role1</th>
-                                            <th>role2</th>
-
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="user : ${allUsers}">
-                                            <td th:text="${user.id}"> </td>
-                                            <td th:text="${user.country}"> </td>
-                                            <td th:text="${user.city}"> </td>
-                                            <td th:text="${user.street}"> </td>
-                                            <td th:text="${user.username}"> </td>
-                                            <td th:text=${user.password} >  </td>
-                                            <!--        data-target="#editModal"-->
-                                            <td><button type="button" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#editModal' + ${user.id}"  >Edit</button></td>
-                                            <td><button type="button" class="btn btn-danger"  data-toggle="modal" th:attr="data-target='#deleteModal' + ${user.id}"  >Delete</button></td>
-                                            <td
-                                                    th:each="role : ${user.getRoles()}" th:text="${role.getRole()}" > Roles
-                                            </td>
-                                        </tr>
-                                        <tbody>
-                                    </table>
-
-                                </div>
-
-
-                                <!--    Содержание по ссылке №2-->
-                                <!--........................... Add ...............................................-->
-                                <div id="home" class="tab-pane ">
-
-                                    <!--        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
-                                    <form th:action="@{/admin/addUser}" th:object="${user}" th:method="post">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Add new user</h5>
-<!--                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                                                        <span aria-hidden="true">&times;</span>-->
-<!--                                                    </button>-->
-                                                </div>
-
-
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        <label for="country-name-add" class="col-form-label">Country:</label>
-                                                        <input type="text" class="form-control" id="country-name-add" name="country">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="city-name-add" class="col-form-label">City:</label>
-                                                        <input type="text" class="form-control" id="city-name-add" name="city">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="street-name-add" class="col-form-label">Street:</label>
-                                                        <input type="text" class="form-control" id="street-name-add" name="street">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="user-name-add" class="col-form-label">Username:</label>
-                                                        <input type="text" class="form-control" id="user-name-add" name="username">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="pass-name-add" class="col-form-label">Password:</label>
-                                                        <input type="text" class="form-control" id="pass-name-add" name="password">
-                                                    </div>
-
-
-
-                                                    <div class="form-group">
-                                                        <!--                            <label for="role-role" class="col-form-label" >Role:</label>-->
-
-                                                        <!--                            <input required type="radio" class="form-control" id="pass-name11" name="roleInput" value="ROLE_ADMIN"  >-->
-                                                        <!--                            <input required type="radio" class="form-control" id="pass-name22" name="roleInput" value="ROLE_USER" >-->
-
-                                                        <label for="role-name-add"  class="col-form-label" >Select roles</label>
-
-                                                        <select   name="roleInput" multiple id="role-name-add" required  >
-                                                            <option    value="ROLE_ADMIN"> ADMIN   </option>
-                                                            <option    value="ROLE_USER" > USER  </option>
-                                                        </select>
-                                                    </div>
-                                                    <p>  <input type="submit" class="btn btn-primary btn-xs" value="GO"></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <!--         ..................ВТОРОЙ КОНТЕНТ USER-->
-
-                    <div class="tab-pane" id="v-pills-profile" >
-                        <h4 > <b> USER PANEL</b></h4><br>
-                        <div>
-                            <table class="table table-hover" >
-                                    <thead   >
-                                        <tr>
-                                            <th>id</th>
-                                            <th>country</th>
-                                            <th>city</th>
-                                            <th>street</th>
-                                            <th>username</th>
-                                            <th hidden>password</th>
-                                            <!--        <th>edit/delete</th>-->
-                                            <th>edit</th>
-                                            <th >delete</th>
-                                            <th>role1</th>
-                                            <th>role2</th>
-                                        </tr>
-                                    </thead>
-
-
-                                    <tbody>
-                                        <tr  >
-                                            <td th:text="${us.id}"> </td>
-                                            <td th:text="${us.country}"> </td>
-                                            <td th:text="${us.city}"> </td>
-                                            <td th:text="${us.street}"> </td>
-                                            <td th:text="${us.username}"> </td>
-                                            <td th:text="${us.password}" hidden>  </td>
-
-                                            <!--        data-target="#editModal"-->
-                                            <td><button type="button" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#editModal' + ${us.id}"  >Edit</button></td>
-                                            <td><button type="button" class="btn btn-danger"  data-toggle="modal" th:attr="data-target='#deleteModal' + ${us.id}"  >Delete</button></td>
-
-                                            <td
-                                                    th:each="role : ${us.getRoles()}" th:text="${role.getRole()}" > Roles
-                                            </td>
-                                        </tr>
-                                    <tbody>
-                                </table>
-                        </div>
-                    </div>
-
-
-                </div>
-
-        </div>
-
-
-
+            <li >
+                <a class="nav-link active"    id="v-pills-home-tab"    data-toggle="pill" href="#v-pills-home"    role="tab" aria-controls="v-pills-home"    aria-selected="true">Admin</a>
+            </li>
+            <li >
+                <a class="nav-link"           id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">User</a>
+            </li>
+        </ul>
     </div>
 
 
 
 
-<!--</div>-->
+    <div class="col-10">
+            <div class="tab-content">
+
+                <!--        Первый КОНТЕНТ ADMIN-->
+                <div class="tab-pane active" id="v-pills-home">
+
+                    <!--...... ADD & TABLE...........-->
+                    <div class="col-10" >
+                        <div class="tab-content">
+                            <h4  > <b> ADMIN PANEL</b></h4><br>
+
+                            <ul class="nav nav-pills">
+                                <!--    ссыылка №1 -->
+                                <li class="nav-item">
+                                    <a class="nav-link active"  data-toggle="tab" href="#menu1">Table</a>
+                                </li>
+
+                                <!--    ссыылка №2-->
+                                <li class="nav-item" >
+                                    <a class="nav-link  " data-toggle="tab" href="#home">Add</a>
+                                </li>
+
+                            </ul>
+                            <!--    Содержание по ссылке №1-->
+                            <div id="menu1" class="tab-pane active">
+
+                                <!--.................................... таблица  ...............................................border="1px" cellpadding="2" cellspacing="" data-target="#showUsers" -->
+                                <table class="table table-hover" >
+
+                                    <thead  >
+                                    <tr>
+                                        <th>id</th>
+                                        <th>country</th>
+                                        <th>city</th>
+                                        <th>street</th>
+                                        <th>username</th>
+                                        <th>password</th>
+                                        <th>edit</th>
+                                        <th>delete</th>
+                                        <th>role1</th>
+                                        <th>role2</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="user : ${allUsers}">
+                                        <td th:text="${user.id}"> </td>
+                                        <td th:text="${user.country}"> </td>
+                                        <td th:text="${user.city}"> </td>
+                                        <td th:text="${user.street}"> </td>
+                                        <td th:text="${user.username}"> </td>
+                                        <td th:text=${user.password} >  </td>
+                                        <!--        data-target="#editModal"-->
+                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#editModal' + ${user.id}"  >Edit</button></td>
+                                        <td><button type="button" class="btn btn-danger"  data-toggle="modal" th:attr="data-target='#deleteModal' + ${user.id}"  >Delete</button></td>
+                                        <td
+                                                th:each="role : ${user.getRoles()}" th:text="${role.getRole()}" > Roles
+                                        </td>
+                                    </tr>
+                                    <tbody>
+                                </table>
+
+                            </div>
+
+
+                            <!--    Содержание по ссылке №2-->
+                            <!--........................... Add ...............................................-->
+                            <div id="home" class="tab-pane ">
+
+                                <!--        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+                                <form th:action="@{/admin/addUser}" th:object="${user}" th:method="post">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Add new user</h5>
+<!--                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                                                        <span aria-hidden="true">&times;</span>-->
+<!--                                                    </button>-->
+                                            </div>
+
+
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="country-name-add" class="col-form-label">Country:</label>
+                                                    <input type="text" class="form-control" id="country-name-add" name="country">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="city-name-add" class="col-form-label">City:</label>
+                                                    <input type="text" class="form-control" id="city-name-add" name="city">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="street-name-add" class="col-form-label">Street:</label>
+                                                    <input type="text" class="form-control" id="street-name-add" name="street">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="user-name-add" class="col-form-label">Username:</label>
+                                                    <input type="text" class="form-control" id="user-name-add" name="username">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="pass-name-add" class="col-form-label">Password:</label>
+                                                    <input type="text" class="form-control" id="pass-name-add" name="password">
+                                                </div>
 
 
 
+                                                <div class="form-group">
+                                                    <!--                            <label for="role-role" class="col-form-label" >Role:</label>-->
+
+                                                    <!--                            <input required type="radio" class="form-control" id="pass-name11" name="roleInput" value="ROLE_ADMIN"  >-->
+                                                    <!--                            <input required type="radio" class="form-control" id="pass-name22" name="roleInput" value="ROLE_USER" >-->
+
+                                                    <label for="role-name-add"  class="col-form-label" >Select roles</label>
+
+                                                    <select   name="roleInput" multiple id="role-name-add" required  >
+                                                        <option    value="ROLE_ADMIN"> ADMIN   </option>
+                                                        <option    value="ROLE_USER" > USER  </option>
+                                                    </select>
+                                                </div>
+                                                <p>  <input type="submit" class="btn btn-primary btn-xs" value="GO"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
 
+                <!--         ..................ВТОРОЙ КОНТЕНТ USER-->
+
+                <div class="tab-pane" id="v-pills-profile" >
+                    <h4 > <b> USER PANEL</b></h4><br>
+                    <div>
+                        <table class="table table-hover" >
+                                <thead   >
+                                    <tr>
+                                        <th>id</th>
+                                        <th>country</th>
+                                        <th>city</th>
+                                        <th>street</th>
+                                        <th>username</th>
+                                        <th hidden>password</th>
+                                        <!--        <th>edit/delete</th>-->
+                                        <th>edit</th>
+                                        <th >delete</th>
+                                        <th>role1</th>
+                                        <th>role2</th>
+                                    </tr>
+                                </thead>
 
 
+                                <tbody>
+                                    <tr  >
+                                        <td th:text="${us.id}"> </td>
+                                        <td th:text="${us.country}"> </td>
+                                        <td th:text="${us.city}"> </td>
+                                        <td th:text="${us.street}"> </td>
+                                        <td th:text="${us.username}"> </td>
+                                        <td th:text="${us.password}" hidden>  </td>
 
+                                        <!--        data-target="#editModal"-->
+                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#editModal' + ${us.id}"  >Edit</button></td>
+                                        <td><button type="button" class="btn btn-danger"  data-toggle="modal" th:attr="data-target='#deleteModal' + ${us.id}"  >Delete</button></td>
 
+                                        <td
+                                                th:each="role : ${us.getRoles()}" th:text="${role.getRole()}" > Roles
+                                        </td>
+                                    </tr>
+                                <tbody>
+                            </table>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
 
 
 
@@ -272,6 +247,7 @@
 
 <!--....................................  Модальные окна .......................-->
 
+<!--............. EDIT..............-->
 <div th:each="user : ${allUsers}" class="modal fade" th:id="'editModal' + ${user.id}"  tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
 
     <form th:action="@{/admin/edit}" data-toggle="modal"  th:object="${user}"   th:method="post">
@@ -286,9 +262,10 @@
 
 
                 <div class="modal-body" >
+<!--                    если сделать поле id  -disabled - появится ошибка Duplicate for key.....&ndash;&gt;-->
                     <div class="form-group">
-                        <label for="id-name" class="col-form-label">Country:</label>
-                        <input type="hidden" class="form-control" id="id-name" name="id" th:value="${user.id}" >
+                        <label for="id-name-edit" class="col-form-label">id</label>
+                        <input  type="hidden" class="form-control" id="id-name-edit" name="id" th:value="${user.id}"   >
                     </div>
 
 
@@ -362,6 +339,8 @@
     </form>
 </div>
 
+
+<!--............. DELETE..............-->
 <div class="modal fade" th:each="user : ${allUsers}" th:id="'deleteModal' + ${user.id}"  tabindex="-1" role="dialog" aria-labelledby="delModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -373,9 +352,10 @@
             </div>
 
             <div class="modal-body">
+<!--                если сделать поле id -disabled - появится ошибка Duplicate for key.....-->
                 <div class="form-group">
-                    <label for="id-name" class="col-form-label">Country:</label>
-                    <input type="hidden" class="form-control" id="id-name3" name="id" th:value="${user.id}" disabled>
+                    <label for="id-name-del" class="col-form-label">id:</label>
+                    <input type="hidden" class="form-control" id="id-name-del" name="id" th:value="${user.id}" >
                 </div>
 
 
@@ -454,7 +434,6 @@
         </div>
     </div>
 </div>
-
 
 <!--....................................  .................... .......................-->
 

@@ -1,5 +1,7 @@
 package ru.vicpas.CrudBootSpringSecurity_01.controller.userController.showOne;
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,8 +26,15 @@ public class OneUserController {
 //        User user = userService.getUserByUserName(getNameFromSecurityContext());
         User user = userRepo.findUserByUsername(getNameFromSecurityContext());
 
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            model.addAttribute("uk", authentication.getName());
+            model.addAttribute("ur", authentication.getAuthorities());
+            model.addAttribute("us", userRepo.findUserByUsername(authentication.getName()) );
+        }
         model.addAttribute("user", user);
-        return "/oneUser";
+        return "/navtabForOneUser";
     }
 
     public String getNameFromSecurityContext() {
